@@ -29,6 +29,22 @@ To install prerequisites, navigate to the top folder in the repo and type:
 $ npm install
 ```
 
+This app uses MongoDB for the database. Refer to
+[MongoDB's installation instructions](https://docs.mongodb.com/manual/installation/)
+if you do not have it already installed.
+
+You will need to create a .env file, at the top level, with the following:
+
+```
+JWT_SECRET='set_your_secret_key_here_developer'
+MONGODB_URI='your_mongodb_database_name_for_this_app_here_developer'
+PORT=set_your_preferred_port_number_here_developer
+```
+
+> JWT_SECRET should be a strong and unique password of your choosing. Please
+> give the name of the database you wish to use by entering it in MONGODB_URI.
+> If you leave PORT empty it will use the default value of 3000.
+
 ## Basic Usage
 
 ## Credits
