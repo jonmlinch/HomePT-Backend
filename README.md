@@ -41,14 +41,24 @@ MONGODB_URI='your_mongodb_database_name_for_this_app_here_developer'
 PORT=set_your_preferred_port_number_here_developer
 ```
 
-> JWT_SECRET should be a strong and unique password of your choosing.
+> JWT_SECRET should be a strong and unique key of your choosing.
 > <br />
-> Please give the name of the database you wish to use by entering it in
-> MONGODB_URI.
+> Please give the name of the database you wish to use by entering it as the
+> value for MONGODB_URI. It does not need to already exist.
 > <br />
-> If you leave PORT empty it will use the default value of 3000.
+> If you skip adding the "PORT" line it will use a default of 3000.
 
 ## Basic Usage
+
+We recommend using [nodemon](https://github.com/remy/nodemon) to monitor
+changes in the file directory and restarting the server. Refer to nodemon's
+instructions, if you are going to use it.
+
+If you do not wish to use nodemon, you can fire up the server using:
+
+```
+$ node index.js
+```
 
 ## Credits
 
