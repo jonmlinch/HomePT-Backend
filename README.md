@@ -61,7 +61,9 @@ $ node index.js
 
 ### Testing
 
-Tests are run using Mocha and are written using Chai.
+Tests are run using [Mocha](https://mochajs.org/) and are written using
+[Chai](https://www.chaijs.com/) with the
+[expect](https://www.chaijs.com/guide/styles/#expect) BDD style.
 
 To run all the tests,
 
