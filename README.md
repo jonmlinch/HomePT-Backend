@@ -59,6 +59,18 @@ If you do not wish to use nodemon, you can fire up the server using:
 $ node index.js
 ```
 
+### Testing
+
+Tests are run using Mocha and are written using Chai.
+
+To run all the tests,
+
+```
+$ npm test
+```
+
+> Please refer to Mocha's documentation for selecting individual test suites.
+
 ## Credits
 
 Developed by [Andres](#), [Jon](#), and [Justin](#).
