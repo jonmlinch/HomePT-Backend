@@ -54,14 +54,12 @@ userSchema.set('toJSON', {
   }
 });
 
+// method for verifying correct password
 userSchema.methods.authenticated = function(password) {
   return bcrypt.compareSync(password, this.password);
 }
 
-/* next is pausing the function and hashSync is pausing the db save
- * (next prevents the subsequent function from executing and hashSync prevents
- * the next call from being sent too early) */
-// pre is Mongoose's version of a before hook, in this case before 'save'
+// hash password before saving it to DB
 userSchema.pre('save', function(next) {
   const hash = bcrypt.hashSync(this.password, 11);
   // store the hash as the user's password
