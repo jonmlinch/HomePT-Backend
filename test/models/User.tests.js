@@ -1,18 +1,10 @@
-// for User model
+// for User model to test
 const User = require('../../models/User');
-// for chai
+// for chai's expect BDD syntax
 const expect = require('chai').expect;
 
 // unit test suite for wish model
 describe('User Model Unit Tests', function() {
-
-  //
-  // shared test objects
-  //
-
-  // prepare database for User model test suite
-
-  // setup basic not-yet-saved testing data
 
   // User.name tests
   describe('name is required', function() {
