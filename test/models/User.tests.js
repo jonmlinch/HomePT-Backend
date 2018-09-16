@@ -14,6 +14,18 @@ describe('User Model Unit Tests', function() {
 
   // setup basic not-yet-saved testing data
 
+  // User.name tests
+  describe('name is required', function() {
+    it('should reject an empty name', function() {
+      let toReject = new User();
+      toReject.name = '       ';
+      toReject.email = 'valid@email.org';
+      toReject.validate(function(err) {
+        expect(err.errors.name).to.exist;
+      });
+    });
+  });
+
   // User.email tests
   describe('email is a valid format', function() {
     it('should reject a missing @', function() {

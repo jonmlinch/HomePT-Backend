@@ -20,10 +20,9 @@ const validateEmail = (email) => {
 //
 
 const userSchema = new mongoose.Schema({
-  email: { // TODO determine if lowercase + unique is a good check
+  email: {
     type: String,
     trim: true,
-    lowercase: true,
     unique: true,
     required: 'Please provide an e-mail address',
     validate: [validateEmail, 'Please enter a valid e-mail address']
