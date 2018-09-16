@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 // returns true if format conforms to a broad email format, else false
 const validateEmail = (email) => {
   // compare email against a regular expression to validate format
-  let re = new RegExp('/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i');
+  let re = /^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i;
   return re.test(email);
 }
 
