@@ -6,6 +6,12 @@ const expect = require('chai').expect;
 // unit test suite for wish model
 describe('User Model Unit Tests', function() {
 
+  /* TODO remaining tests:
+   * validate password
+   * correct password matches hash
+   * JSON excludes password
+   * password is saved as a hash */
+
   // User.name tests
   describe('name is required', function() {
     it('should reject an empty name', function() {
