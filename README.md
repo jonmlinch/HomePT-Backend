@@ -50,9 +50,8 @@ PORT=set_your_preferred_port_number_here_developer
 
 ## Basic Usage
 
-We recommend using [nodemon](https://github.com/remy/nodemon) to monitor
-changes in the file directory and restarting the server. Refer to nodemon's
-instructions, if you are going to use it.
+We recommend using [nodemon](https://github.com/remy/nodemon) to run
+the server. Refer to nodemon's instructions, if you are going to use it.
 
 If you do not wish to use nodemon, you can fire up the server using:
 
