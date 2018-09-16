@@ -30,7 +30,7 @@ $ npm install
 ```
 
 This app uses MongoDB for the database. Refer to
-[MongoDB's installation instructions](https://docs.mongodb.com/manual/installation/)
+[MongoDB's installation instructions](https://docs.mongodb.com/manual/installation/),
 if you do not have it already installed.
 
 You will need to create a .env file, at the top level, with the following:
