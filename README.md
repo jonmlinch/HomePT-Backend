@@ -41,8 +41,11 @@ MONGODB_URI='your_mongodb_database_name_for_this_app_here_developer'
 PORT=set_your_preferred_port_number_here_developer
 ```
 
-> JWT_SECRET should be a strong and unique password of your choosing. Please
-> give the name of the database you wish to use by entering it in MONGODB_URI.
+> JWT_SECRET should be a strong and unique password of your choosing.
+> <br />
+> Please give the name of the database you wish to use by entering it in
+> MONGODB_URI.
+> <br />
 > If you leave PORT empty it will use the default value of 3000.
 
 ## Basic Usage
