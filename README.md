@@ -65,6 +65,12 @@ Tests are run using [Mocha](https://mochajs.org/) and are written using
 [Chai](https://www.chaijs.com/) with the
 [expect](https://www.chaijs.com/guide/styles/#expect) BDD style.
 
+To use the test scripts, please install Mocha globally with:
+
+```
+$ npm i -g mocha
+```
+
 To run all the tests,
 
 ```
