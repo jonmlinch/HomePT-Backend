@@ -37,13 +37,13 @@ You will need to create a .env file, at the top level, with the following:
 
 ```
 JWT_SECRET='set_your_secret_key_here_developer'
-MONGODB_URI='your_mongodb_database_name_for_this_app_here_developer'
+MONGODB_URI='your_mongodb_database_path_for_this_app_here_developer'
 PORT=set_your_preferred_port_number_here_developer
 ```
 
 > JWT_SECRET should be a strong and unique key of your choosing.
 > <br />
-> Please give the name of the database you wish to use by entering it as the
+> Please give the address of the database you wish to use by entering it as the
 > value for MONGODB_URI. It does not need to already exist.
 > <br />
 > If you skip adding the "PORT" line it will use a default of 3000.
