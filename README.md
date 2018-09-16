@@ -14,6 +14,21 @@ information, please refer to
 
 ## Installation
 
+Create a local folder with this repo with cmd ($ signifies terminal cmd):
+
+```
+$ git clone git@github.com:AFresnedo/backend-pt.git
+```
+
+This back end requires [NodeJS](https://nodejs.org/en/download/)
+to run. After installation, you may install prerquisite modules.
+
+To install prerequisites, navigate to the top folder in the repo and type:
+
+```
+$ npm install
+```
+
 ## Basic Usage
 
 ## Credits
