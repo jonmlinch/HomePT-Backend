@@ -28,9 +28,6 @@ describe('User Model Unit Tests', function() {
         if (err) {
           expect(err.errors.name).to.not.exist;
         }
-        else {
-          expect(err).to.not.exist;
-        }
       });
     });
   });
@@ -51,8 +48,24 @@ describe('User Model Unit Tests', function() {
         if (err) {
           expect(err.errors.email).to.not.exist;
         }
-        else {
-          expect(err).to.not.exist;
+      });
+    });
+  });
+
+  // Admins may not be created
+  describe('admin creation is blocked', function() {
+    it('should not allow an admin to be made', function() {
+      let newAdmin = new User();
+      newAdmin.admin = true;
+      newAdmin.validate(function(err) {
+        expect(err.errors.admin).to.exist;
+      });
+    });
+    it('should allow defaulted non-admins to be made', function() {
+      let newNormie = new User();
+      newNormie.validate(function(err) {
+        if (err) {
+          expect(err.errors.admin).to.not.exist;
         }
       });
     });
@@ -74,9 +87,6 @@ describe('User Model Unit Tests', function() {
         if (err) {
           expect(err.errors.type).to.not.exist;
         }
-        else {
-          expect(err).to.not.exist;
-        }
       });
     });
     it('should accept provider type', function() {
@@ -85,9 +95,6 @@ describe('User Model Unit Tests', function() {
       toAccept.validate(function(err) {
         if (err) {
           expect(err.errors.type).to.not.exist;
-        }
-        else {
-          expect(err).to.not.exist;
         }
       });
     });

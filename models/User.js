@@ -20,6 +20,9 @@ const validateEmail = (email) => {
 // confirm type matches possible list
 const validateType = (type) => types.includes(type) ? true : false;
 
+// cannot create an admin
+const validateNotAdmin = (admin) => admin ? false : true;
+
 //
 // schemas
 //
@@ -49,6 +52,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: [validateType, 'That account type does not exist.']
+  },
+  admin: {
+    type: Boolean,
+    default: false,
+    validate: [validateNotAdmin, 'That action is not allowed.']
   }
 });
 
