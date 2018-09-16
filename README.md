@@ -11,3 +11,11 @@ more!
 This README covers installation and basic usage of the site. For further
 information, please refer to
 [backend-pt](https://github.com/AFresnedo/backend-pt/wiki).
+
+## Installation
+
+## Basic Usage
+
+## Credits
+
+Developed by [Andres](#), [Jon](#), and [Justin](#).
