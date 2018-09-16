@@ -19,7 +19,6 @@ describe('User Model Unit Tests', function() {
     it('should reject an empty name', function() {
       let toReject = new User();
       toReject.name = '       ';
-      toReject.email = 'valid@email.org';
       toReject.validate(function(err) {
         expect(err.errors.name).to.exist;
       });
@@ -30,7 +29,6 @@ describe('User Model Unit Tests', function() {
   describe('email is a valid format', function() {
     it('should reject a missing @', function() {
       let toReject = new User();
-      toReject.name = 'valid name';
       toReject.email = 'noAtSign';
       toReject.validate(function(err) {
         expect(err.errors.email).to.exist;
@@ -38,14 +36,12 @@ describe('User Model Unit Tests', function() {
     });
     it('should confirm a valid email format', function() {
       let toConfirm = new User();
-      toConfirm.name = 'valid name';
       toConfirm.email = 'this1@valid.org';
       toConfirm.validate(function(err) {
-        if (err) {
+        if (err && err.errors.email) {
           console.log('error was:', err.errors.email);
           expect(err.errors.email).to.not.exist;
         }
-        expect(err).to.not.exist;
       });
     });
   });
