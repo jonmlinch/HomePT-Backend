@@ -23,6 +23,18 @@ describe('User Model Unit Tests', function() {
         expect(err.errors.name).to.exist;
       });
     });
+    it('should accept a valid name', function() {
+      let toAccept = new User();
+      toAccept.name = 'abadra kensquke\'`el kzFour';
+      toAccept.validate(function(err) {
+        if (err) {
+          expect(err.errors.name).to.not.exist;
+        }
+        else {
+          expect(err).to.not.exist;
+        }
+      });
+    });
   });
 
   // User.email tests
@@ -35,12 +47,14 @@ describe('User Model Unit Tests', function() {
       });
     });
     it('should confirm a valid email format', function() {
-      let toConfirm = new User();
-      toConfirm.email = 'this1@valid.org';
-      toConfirm.validate(function(err) {
-        if (err && err.errors.email) {
-          console.log('error was:', err.errors.email);
+      let toAccept = new User();
+      toAccept.email = 'this1@valid.org';
+      toAccept.validate(function(err) {
+        if (err) {
           expect(err.errors.email).to.not.exist;
+        }
+        else {
+          expect(err).to.not.exist;
         }
       });
     });
