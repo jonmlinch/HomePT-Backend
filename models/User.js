@@ -2,6 +2,8 @@
 const mongoose = require('mongoose');
 // for password hashing
 const bcrypt = require('bcrypt');
+// define createable account types
+const types = ['client', 'provider'];
 
 //
 // validatation helper functions
@@ -14,6 +16,9 @@ const validateEmail = (email) => {
   let re = /^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i;
   return re.test(email);
 }
+
+// confirm type matches possible list
+const validateType = (type) => types.includes(type) ? true : false;
 
 //
 // schemas
@@ -39,6 +44,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
     maxlength: 24
+  },
+  type: {
+    type: String,
+    required: true,
+    validate: [validateType, 'That account type does not exist.']
   }
 });
 

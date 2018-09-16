@@ -44,12 +44,47 @@ describe('User Model Unit Tests', function() {
         expect(err.errors.email).to.exist;
       });
     });
-    it('should confirm a valid email format', function() {
+    it('should accept a valid email format', function() {
       let toAccept = new User();
       toAccept.email = 'this1@valid.org';
       toAccept.validate(function(err) {
         if (err) {
           expect(err.errors.email).to.not.exist;
+        }
+        else {
+          expect(err).to.not.exist;
+        }
+      });
+    });
+  });
+
+  // User.type tests
+  describe('type is valid', function() {
+    it('should reject no match', function() {
+      let toReject = new User();
+      toReject.type = 'wrong';
+      toReject.validate(function(err) {
+        expect(err.errors.type).to.exist;
+      });
+    });
+    it('should accept client type', function() {
+      let toAccept = new User();
+      toAccept.type = 'client';
+      toAccept.validate(function(err) {
+        if (err) {
+          expect(err.errors.type).to.not.exist;
+        }
+        else {
+          expect(err).to.not.exist;
+        }
+      });
+    });
+    it('should accept provider type', function() {
+      let toAccept = new User();
+      toAccept.type = 'provider';
+      toAccept.validate(function(err) {
+        if (err) {
+          expect(err.errors.type).to.not.exist;
         }
         else {
           expect(err).to.not.exist;
