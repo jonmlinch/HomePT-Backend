@@ -20,9 +20,9 @@ router.post('/login', (req, res) => {
         return res.status(400).send({ err: 'That email is not registered' });
       }
       // verify password
-      if (!user.authenticated(req.body.password)) {
+      if (!req.body.password || !user.authenticated(req.body.password)) {
         // password failed authentication
-        return res.status(401).send('Invalid credentials');
+        return res.status(401).send({ err: 'Invalid credentials' });
       }
       // user logged in, generate token
       const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {

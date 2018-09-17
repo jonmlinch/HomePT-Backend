@@ -19,9 +19,6 @@ describe('Auth Controller Unit Tests', function() {
       password: 'atleast6char',
       type: 'client'
     })
-      .then(function() {
-        // do nothing
-      })
       .catch(function(err) {
         console.log('err in setup creating validUser:', err);
       });
@@ -31,9 +28,6 @@ describe('Auth Controller Unit Tests', function() {
   afterEach(async function() {
     // valid user
     await db.User.deleteOne({ email: 'this@isOkay.org' })
-      .then(function() {
-        // do nothing
-      })
       .catch(function(err) {
         console.log('err in teardown deleting validUser:', err);
       });
@@ -61,7 +55,7 @@ describe('Auth Controller Unit Tests', function() {
     it('should respond with 401', function(done) {
       server
         .post('/auth/login')
-        .send({ email: 'this@isOkay.org' })
+        .send({ email: 'this@isOkay.org', password: 'fail' })
         .expect(401)
         .end(function(err, res) {
           if (err) return done(err);
