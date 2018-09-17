@@ -1,5 +1,5 @@
 // load environmental variables
-require('dotenv').config;
+require('dotenv').config();
 // load web framework
 const express = require('express');
 // load token functionality for frontend/backend communciation
@@ -11,12 +11,11 @@ const router = express.Router();
 
 // endpoint for logging in users
 router.post('/login', (req, res) => {
-  console.log(req.body)
   // look for user in database
   db.User.findOne({ email: req.body.email })
     .then(user => {
       // check if user was found
-      if(!user) {
+      if (!user) {
         return res.status(400).send({ err: 'That email is not registered' });
       }
       // verify password
@@ -30,12 +29,16 @@ router.post('/login', (req, res) => {
         expiresIn: 60 * 60 * 24 * 7
       });
       // send token to the frontend
-      res.send({ token });
+      res.status(200).send({ token });
     })
     .catch(err => {
       console.log('err logging in user:', err);
       return res.status(503).send('Internal error');
     });
+});
+
+router.post('/signup', (req, res) => {
+  console.log('req.body in signup is:', req.body);
 });
 
 module.exports = router;

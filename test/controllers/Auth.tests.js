@@ -85,4 +85,18 @@ describe('Auth Controller Unit Tests', function() {
     });
   });
 
+  describe('login with valid data', function() {
+    it('should respond with 200', function(done) {
+      server
+        .post('/auth/login')
+        .send({ email: 'this@isOkay.org', password: 'atleast6char' })
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          expect(res.body.token).to.exist;
+          done();
+        })
+    });
+  });
+
 });

@@ -13,6 +13,16 @@ describe('User Model Unit Tests', function() {
    * JSON excludes password
    * password is saved as a hash */
 
+  // User.create tests
+  describe('duplicate user may not be created', function() {
+    it('should allow a new non-duplicate user', function() {
+      User.create({ email: 'to@be.dup', name: 'any', password: 'thisisvalid',
+        type: 'client' })
+    });
+    it('should not allow a duplicate email to be added', function() {
+    });
+  });
+
   // User.name tests
   describe('name is required', function() {
     it('should reject an empty name', function() {
