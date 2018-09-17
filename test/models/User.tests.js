@@ -43,8 +43,8 @@ describe('User Model Unit Tests', function() {
   // User.create tests
   describe('duplicate user may not be created', function() {
     it('should not allow a duplicate email to be added', async function() {
-      await User.create({ email: 'this@isOkay.org', name: 'any', password: 'thisisvalid',
-        type: 'client' })
+      await User.create({ email: 'this@isOkay.org', name: 'any', password:
+        'thisisvalid', type: 'client' })
         .then(function(success) {
           expect(success).to.not.exist;
         })

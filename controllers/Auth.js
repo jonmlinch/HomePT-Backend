@@ -23,13 +23,8 @@ router.post('/login', (req, res) => {
         // password failed authentication
         return res.status(401).send({ err: 'Invalid credentials' });
       }
-      // user logged in, generate token
-      const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
-        // provide user with a 1 week login
-        expiresIn: 60 * 60 * 24 * 7
-      });
-      // send token to the frontend
-      res.status(200).send({ token });
+      // user logged in, send token
+      res.status(200).send({ token: generateToken(60 * 60 * 24 * 7) });
     })
     .catch(err => {
       console.log('err logging in user:', err);
@@ -39,6 +34,20 @@ router.post('/login', (req, res) => {
 
 router.post('/signup', (req, res) => {
   console.log('req.body in signup is:', req.body);
+  db.User.create(req.body)
+    .then(newUser => {
+      res.status(200).send({ token: generateToken(60 * 60 * 24 * 7) });
+    })
+    .catch(err => {
+    });
 });
+
+// duration is in seconds
+function generateToken(duration) {
+  const token = jwt.sign(createdUser.toJSON(), process.env.JWT_SECRET, {
+        expiresIn: duration
+      });
+  return token;
+}
 
 module.exports = router;
