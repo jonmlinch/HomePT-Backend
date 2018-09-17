@@ -24,7 +24,7 @@ router.post('/login', (req, res) => {
         return res.status(401).send({ err: 'Invalid credentials' });
       }
       // user logged in, send token
-      res.status(200).send({ token: generateToken(60 * 60 * 24 * 7) });
+      res.status(200).send({ token: generateToken(user, 60 * 60 * 24 * 7) });
     })
     .catch(err => {
       console.log('err logging in user:', err);
@@ -36,15 +36,25 @@ router.post('/signup', (req, res) => {
   console.log('req.body in signup is:', req.body);
   db.User.create(req.body)
     .then(newUser => {
-      res.status(200).send({ token: generateToken(60 * 60 * 24 * 7) });
+      res.status(200).send({ token: generateToken(user, 60 * 60 * 24 * 7) });
     })
     .catch(err => {
+      // TODO handle error type
+      const duplicateError = /E11000/
+      if (duplicateError.test(err.errmsg)) {
+        console.log('email already signed up:', err);
+        return res.status(503).send('Email is already used');
+      }
+      else {
+        console.log('err signing up user:', err);
+        return res.status(503).send('Internal error');
+      }
     });
 });
 
 // duration is in seconds
-function generateToken(duration) {
-  const token = jwt.sign(createdUser.toJSON(), process.env.JWT_SECRET, {
+function generateToken(user, duration) {
+  const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
         expiresIn: duration
       });
   return token;
