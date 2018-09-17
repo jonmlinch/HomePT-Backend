@@ -10,7 +10,10 @@ describe('Auth Controller Unit Tests', function() {
   // load server
   const server = request.agent('http://localhost:3000');
 
+  //
   // setup
+  //
+
   beforeEach(async function() {
     // create valid user
     await db.User.create({
@@ -24,7 +27,10 @@ describe('Auth Controller Unit Tests', function() {
       });
   });
 
+  //
   // teardown
+  //
+
   afterEach(async function() {
     // remove valid user
     await db.User.deleteOne({ email: 'this@isOkay.org' })
@@ -51,7 +57,7 @@ describe('Auth Controller Unit Tests', function() {
     });
   });
 
-  describe('login with valid email but wrong password', function() {
+  describe('login with valid email, but wrong password', function() {
     it('should respond with 401', function(done) {
       server
         .post('/auth/login')
@@ -65,7 +71,7 @@ describe('Auth Controller Unit Tests', function() {
     });
   });
 
-  describe('login with valid email but no password', function() {
+  describe('login with valid email, but no password', function() {
     it('should respond with 401', function(done) {
       server
         .post('/auth/login')
