@@ -2,8 +2,10 @@
 // unit test suite for wish model
 describe('User Model Unit Tests', function() {
 
+  // for db connection
+  const db = require('../../models');
   // for User model to test
-  const User = require('../../models/User');
+  const User = db.User;
   // for chai's expect BDD syntax
   const expect = require('chai').expect;
 
@@ -13,13 +15,42 @@ describe('User Model Unit Tests', function() {
    * JSON excludes password
    * password is saved as a hash */
 
+  beforeEach(async function() {
+    // create valid user
+    await db.User.create({
+      email: 'this@isOkay.org',
+      name: 'a valid name',
+      password: 'atleast6char',
+      type: 'client'
+    })
+      .catch(function(err) {
+        console.log('err in setup creating validUser:', err);
+      });
+  });
+
+  //
+  // teardown
+  //
+
+  afterEach(async function() {
+    // remove valid user
+    await db.User.deleteOne({ email: 'this@isOkay.org' })
+      .catch(function(err) {
+        console.log('err in teardown deleting validUser:', err);
+      });
+  });
+
   // User.create tests
   describe('duplicate user may not be created', function() {
-    it('should allow a new non-duplicate user', function() {
-      User.create({ email: 'to@be.dup', name: 'any', password: 'thisisvalid',
+    it('should not allow a duplicate email to be added', async function() {
+      await User.create({ email: 'this@isOkay.org', name: 'any', password: 'thisisvalid',
         type: 'client' })
-    });
-    it('should not allow a duplicate email to be added', function() {
+        .then(function(success) {
+          expect(success).to.not.exist;
+        })
+        .catch(function(err) {
+          expect(err).to.exist;
+        });
     });
   });
 
