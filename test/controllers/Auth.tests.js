@@ -5,23 +5,38 @@ describe('Auth Controller Unit Tests', function() {
   // for chai's expect BDD syntax
   const expect = require('chai').expect;
   // for creating test samples
-  const User = require('../../models/User');
+  const db = require('../../models');
 
   // load server
   const server = request.agent('http://localhost:3000');
 
-  //
-  // sample test data
-  //
+  // setup
+  beforeEach(async function() {
+    // valid user
+    await db.User.create({
+      email: 'this@isOkay.org',
+      name: 'a valid name',
+      password: 'atleast6char',
+      type: 'client'
+    })
+      .then(function() {
+        // do nothing
+      })
+      .catch(function(err) {
+        console.log('err in setup creating validUser:', err);
+      });
+  });
 
-  // invalid email
-  const invalidEmail = 'this@is.not';
-  // valid user
-  const validUser = User.create({
-    email: 'this@isOkay.org',
-    name: 'a valid name',
-    password: 'atleast6char',
-    type: 'client'
+  // teardown
+  afterEach(async function() {
+    // valid user
+    await db.User.deleteOne({ email: 'this@isOkay.org' })
+      .then(function() {
+        // do nothing
+      })
+      .catch(function(err) {
+        console.log('err in teardown deleting validUser:', err);
+      });
   });
 
   //
@@ -32,11 +47,25 @@ describe('Auth Controller Unit Tests', function() {
     it('should respond with 400', function(done) {
       server
         .post('/auth/login')
-        .send({ email: invalidEmail })
+        .send({ email: 'this@isInvalid.org' })
         .expect(400)
         .end(function(err, res) {
           if (err) return done(err);
           expect(res.body.err).equal('That email is not registered');
+          done();
+        })
+    });
+  });
+
+  describe('login with valid email but wrong password', function() {
+    it('should respond with 401', function(done) {
+      server
+        .post('/auth/login')
+        .send({ email: 'this@isOkay.org' })
+        .expect(401)
+        .end(function(err, res) {
+          if (err) return done(err);
+          expect(res.body.err).equal('Invalid credentials');
           done();
         })
     });
