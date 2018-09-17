@@ -26,7 +26,7 @@ router.post('/login', (req, res) => {
       // user logged in, generate token
       const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
         // provide user with a 1 week login
-        expiresIn: 60 * 60 * 24 * 7;
+        expiresIn: 60 * 60 * 24 * 7
       });
       // send token to the frontend
       res.send({ token });
@@ -36,3 +36,5 @@ router.post('/login', (req, res) => {
       return res.status(503).send('Internal error');
     });
 });
+
+module.exports = router;
