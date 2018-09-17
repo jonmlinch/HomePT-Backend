@@ -1,10 +1,11 @@
-// for User model to test
-const User = require('../../models/User');
-// for chai's expect BDD syntax
-const expect = require('chai').expect;
 
 // unit test suite for wish model
 describe('User Model Unit Tests', function() {
+
+  // for User model to test
+  const User = require('../../models/User');
+  // for chai's expect BDD syntax
+  const expect = require('chai').expect;
 
   /* TODO remaining tests:
    * validate password

@@ -11,12 +11,13 @@ const router = express.Router();
 
 // endpoint for logging in users
 router.post('/login', (req, res) => {
+  console.log(req.body)
   // look for user in database
   db.User.findOne({ email: req.body.email })
     .then(user => {
       // check if user was found
       if(!user) {
-        return res.status(403).send('That email is not registered');
+        return res.status(400).send('That email is not registered');
       }
       // verify password
       if (!user.authenticated(req.body.password)) {
