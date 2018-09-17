@@ -17,7 +17,7 @@ router.post('/login', (req, res) => {
     .then(user => {
       // check if user was found
       if(!user) {
-        return res.status(400).send('That email is not registered');
+        return res.status(400).send({ err: 'That email is not registered' });
       }
       // verify password
       if (!user.authenticated(req.body.password)) {

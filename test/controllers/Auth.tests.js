@@ -21,7 +21,7 @@ describe('Auth Controller Unit Tests', function() {
         .expect(400)
         .end(function(err, res) {
           if (err) return done(err);
-          expect(res.body).equal('That email is not registered');
+          expect(res.body.err).equal('That email is not registered');
           done();
         })
     });
