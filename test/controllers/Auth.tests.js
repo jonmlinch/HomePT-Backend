@@ -12,7 +12,7 @@ describe('Auth Controller Unit Tests', function() {
 
   // setup
   beforeEach(async function() {
-    // valid user
+    // create valid user
     await db.User.create({
       email: 'this@isOkay.org',
       name: 'a valid name',
@@ -26,7 +26,7 @@ describe('Auth Controller Unit Tests', function() {
 
   // teardown
   afterEach(async function() {
-    // valid user
+    // remove valid user
     await db.User.deleteOne({ email: 'this@isOkay.org' })
       .catch(function(err) {
         console.log('err in teardown deleting validUser:', err);
@@ -56,6 +56,20 @@ describe('Auth Controller Unit Tests', function() {
       server
         .post('/auth/login')
         .send({ email: 'this@isOkay.org', password: 'fail' })
+        .expect(401)
+        .end(function(err, res) {
+          if (err) return done(err);
+          expect(res.body.err).equal('Invalid credentials');
+          done();
+        })
+    });
+  });
+
+  describe('login with valid email but no password', function() {
+    it('should respond with 401', function(done) {
+      server
+        .post('/auth/login')
+        .send({ email: 'this@isOkay.org' })
         .expect(401)
         .end(function(err, res) {
           if (err) return done(err);
