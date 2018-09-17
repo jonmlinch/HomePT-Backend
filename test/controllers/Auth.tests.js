@@ -4,14 +4,29 @@ describe('Auth Controller Unit Tests', function() {
   const request = require('supertest');
   // for chai's expect BDD syntax
   const expect = require('chai').expect;
+  // for creating test samples
+  const User = require('../../models/User');
 
   // load server
   const server = request.agent('http://localhost:3000');
 
-  // // for creating test samples
-  // const User = require('../../models/User');
+  //
+  // sample test data
+  //
 
+  // invalid email
   const invalidEmail = 'this@is.not';
+  // valid user
+  const validUser = User.create({
+    email: 'this@isOkay.org',
+    name: 'a valid name',
+    password: 'atleast6char',
+    type: 'client'
+  });
+
+  //
+  // endpoint tests
+  //
 
   describe('login with unregistered email', function() {
     it('should respond with 400', function(done) {
