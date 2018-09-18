@@ -33,14 +33,17 @@ describe('Auth Controller Unit Tests', function() {
 
   afterEach(async function() {
     // remove valid user
-    await db.User.deleteOne({ email: 'this@isOkay.org' })
+    await db.User.deleteMany({})
+      .then(function(success) {
+        // console.log('successfully cleared db')
+      })
       .catch(function(err) {
-        console.log('err in teardown deleting validUser:', err);
+        // console.log('err clearing db:', err);
       });
   });
 
   //
-  // endpoint tests
+  // login testing
   //
 
   describe('login with unregistered email', function() {
@@ -99,4 +102,84 @@ describe('Auth Controller Unit Tests', function() {
     });
   });
 
+
+  //
+  // signup testing
+  //
+
+  describe('signup with email already in use', function() {
+    it('should respond with 503', function(done) {
+      server
+        .post('/auth/signup')
+        .send({ email: 'this@isOkay.org', password: 'whatever', type: 'client',
+          name: 'doesnt matter' })
+        .expect(503)
+        .end(function(err, res) {
+          if (err) return done(err);
+          expect(res.body.err).to.be.equal('Email is already used');
+          done();
+        });
+    });
+  });
+
+  describe('signup with valid data and no db conflict', function() {
+    it('should respond with 201', function(done) {
+      server
+        .post('/auth/signup')
+        .send({ email: 'this@shouldGo.org', password: 'atleast6char', type:
+          'client', name: 'doesnt matter' })
+        .expect(201)
+        .end(function(err, res) {
+          if (err) return done(err);
+          expect(res.body.err).to.not.exist;
+          expect(res.body.token).to.exist;
+          done();
+        });
+    });
+  });
+
+  //
+  // auth from token testing
+  //
+
+  describe('login from token with invalid id', function() {
+    it('should respond with 400', function(done) {
+      server
+        .post('/auth/me/from/token')
+        .send({ id: 2018 })
+        .expect(400)
+        .end(function(err ,res) {
+          if (err) return done(err);
+          expect(res.body.err).to.be.equal('User not found');
+          done();
+        });
+    });
+  });
+
+  describe('login from token with valid id', function() {
+    it('should respond with 200', async function(done) {
+      // validUser should start undefined, because mongoose returns "null"
+      let validUser;
+      // get first User document
+      await db.User.findOne()
+        .then(result => {
+          // either a User document at least 1 exists or null if none exist
+          validUser = result;
+        })
+        .catch(err => {
+          console.log('err finding any user in token login test');
+      });
+      server
+        .post('/auth/me/from/token')
+        .send({ id: validUser.id })
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          expect(res.body.err).to.not.exist;
+          // NOTE the objects should not be equivalent, no password sent back
+          expect(res.body.user.id).to.equal(validUser.id);
+          done();
+        });
+    });
+  });
 });
