@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
   },
   provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   prescriptions: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Prescript' }]
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Prescription' }]
   },
   admin: {
     type: Boolean,
