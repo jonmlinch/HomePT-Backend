@@ -71,7 +71,8 @@ userSchema.set('toJSON', {
       id: user._id,
       email: user.email,
       name: user.name,
-      type: user.type
+      type: user.type,
+      admin: user.admin
     };
     return returnJson;
   }
