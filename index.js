@@ -14,6 +14,7 @@ const logger = require('morgan');
 const app = express();
 
 // activate body parser middleware
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
