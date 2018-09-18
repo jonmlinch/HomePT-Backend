@@ -27,6 +27,9 @@ function fromRequest(req){
   return null;
 }
 
+// // for testing auth routes without tokens
+// app.use('/auth', require('./controllers/AUth'));
+
 // protect auth routes with token authentication, excluding not-logged-in
 app.use('/auth', expressJWT({
   secret: process.env.JWT_SECRET,

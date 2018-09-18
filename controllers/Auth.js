@@ -55,20 +55,24 @@ router.post('/signup', (req, res) => {
 router.post('/me/from/token', function(req, res) {
   db.User.findById(req.user.id)
     .then(user => {
-      console.log(req.body.id)
-      return res.status(200).send({ user: user });
+      if (user) {
+        return res.status(200).send({ user });
+      }
+      else {
+        return res.status(400).send({ err: 'User not found' });
+      }
     })
     .catch(err => {
       console.log(err);
-      return res.status(400).send({ err: 'User not found' });
+      return res.status(503).send({ err: 'Internal error' });
     });
 });
 
 // duration is in seconds
 function generateToken(user, duration) {
   const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
-        expiresIn: duration
-      });
+    expiresIn: duration
+  });
   return token;
 }
 
