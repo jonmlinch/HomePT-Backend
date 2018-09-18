@@ -40,6 +40,8 @@ app.use('/auth', expressJWT({
     { url: '/auth/signup', methods: ['POST'] }
   ]
 }), require('./controllers/Auth'));
+app.use('/exercises', require('./controllers/Exercises'));
+app.use('/prescriptions', require('./controllers/Prescriptions'));
 
 // start listening
 app.listen(3000, function() {

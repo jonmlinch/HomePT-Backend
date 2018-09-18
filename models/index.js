@@ -10,3 +10,6 @@ mongoose.set('useCreateIndex', true);
 
 // export all models
 module.exports.User = require('./User');
+module.exports.Exercise = require('./Exercise');
+module.exports.Prescription = require('./Prescription');
+module.exports.Comment = require('./Comment');

@@ -1,6 +1,7 @@
 // ORM
 const mongoose = require('mongoose');
 
+// NOTE this is an embedded document because i expect expansion
 const instructionsSchema = new mongoose.Schema({
   text: String
 });
