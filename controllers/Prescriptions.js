@@ -5,8 +5,8 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 
-router.get('/prescripts', (req, res) => {
-  db.Prescript.find({})
+router.get('/prescriptions', (req, res) => {
+  db.Prescription.find({})
     .then(results => {
       res.status(200).send({ prescripts: results });
     })
@@ -15,9 +15,9 @@ router.get('/prescripts', (req, res) => {
     });
 });
 
-router.get('/prescriptions/:clientId', (req, res) => {
-  db.Prescript.find({
-    where: { client: clientId }
+router.get('/prescriptions/by/client', (req, res) => {
+  db.Prescription.find({
+    where: { client: req.body.id }
   })
     .then(results => {
       res.status(200).send({ exercises: results });
@@ -27,9 +27,9 @@ router.get('/prescriptions/:clientId', (req, res) => {
     });
 });
 
-router.get('/prescriptions/:providerId', (req, res) => {
-  db.Prescript.find({
-    where: { provider: providerId }
+router.get('/prescriptions/by/provider', (req, res) => {
+  db.Prescription.find({
+    where: { provider: req.body.id }
   })
     .then(results => {
       res.status(200).send({ exercises: results });
@@ -41,9 +41,9 @@ router.get('/prescriptions/:providerId', (req, res) => {
 
 // TODO upgrade this hacky implementation
 router.post('/prescriptions', (req, res) => {
-  db.Prescript.create(req.body)
+  db.Prescription.create(req.body)
     .then(newEx => {
-      res.status(201).send({ success: 'Prescript created' });
+      res.status(201).send({ success: 'Prescription created' });
     })
     .catch(err => {
       console.log(err);

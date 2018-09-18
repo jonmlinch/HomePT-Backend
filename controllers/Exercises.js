@@ -15,7 +15,7 @@ router.get('/exercises', (req, res) => {
     });
 });
 
-router.get('/exercises/:name', (req, res) => {
+router.get('/exercises/by/name', (req, res) => {
   db.Exercise.findOne({
     where: { name: req.body.name }
   })
