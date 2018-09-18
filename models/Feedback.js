@@ -9,9 +9,9 @@ const commentsSchema = new mongoose.Schema({
 });
 
 const feedbackSchema = new mongoose.Schema({
-  provider: { type: Schema.Types.ObjectId, ref: 'Provider' },
-  client: { type: Schema.Types.ObjectId, ref: 'Client' },
-  prescript: { type: Schema.Types.ObjectId, ref: 'Prescript' },
+  provider: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider' },
+  client: { type: mongoose.Schema.Types.ObjectId, ref: 'Client' },
+  prescript: { type: mongoose.Schema.Types.ObjectId, ref: 'Prescript' },
   comments: commentsSchema
 });
 
