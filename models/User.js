@@ -53,6 +53,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: [validateType, 'That account type does not exist.']
   },
+  provider: { type: Schema.Types.ObjectId, ref: 'User' },
+  prescriptions: {
+    type: [{ type: Schema.Types.ObjectId, ref: 'Prescript' }]
+  },
   admin: {
     type: Boolean,
     default: false,
