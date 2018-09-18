@@ -15,9 +15,9 @@ router.get('/comments', (req, res) => {
     });
 });
 
-router.get('/comments/:clientId', (req, res) => {
+router.get('/comments/by/client', (req, res) => {
   db.Comment.find({
-    where: { client: clientId }
+    where: { client: req.body.id }
   })
     .then(results => {
       res.status(200).send({ comments: results });
@@ -27,9 +27,9 @@ router.get('/comments/:clientId', (req, res) => {
     });
 });
 
-router.get('/comments/:providerId', (req, res) => {
+router.get('/comments/by/provider', (req, res) => {
   db.Comment.find({
-    where: { provider: providerId }
+    where: { provider: req.body.id }
   })
     .then(results => {
       res.status(200).send({ comments: results });
