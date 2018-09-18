@@ -157,28 +157,32 @@ describe('Auth Controller Unit Tests', function() {
   });
 
   describe('login from token with valid id', function() {
-    it('should respond with 200', async function(done) {
+    it('should respond with 200', function(done) {
       // validUser should start undefined, because mongoose returns "null"
       let validUser;
       // get first User document
-      await db.User.findOne()
+      db.User.findOne()
         .then(result => {
-          // either a User document at least 1 exists or null if none exist
-          validUser = result;
+          if (result) {
+          server
+            .post('/auth/me/from/token')
+            .send({ id: result.id })
+            .expect(200)
+            .end(function(err, res) {
+              if (err) return done(err);
+              expect(res.body.err).to.not.exist;
+              /* NOTE the objects should not be equivalent, no password sent
+               * back */
+              expect(res.body.user.id).to.equal(validUser.id);
+              done();
+            });
+          }
+          else {
+            return done('user not found');
+          }
         })
         .catch(err => {
-          console.log('err finding any user in token login test');
-      });
-      server
-        .post('/auth/me/from/token')
-        .send({ id: validUser.id })
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          expect(res.body.err).to.not.exist;
-          // NOTE the objects should not be equivalent, no password sent back
-          expect(res.body.user.id).to.equal(validUser.id);
-          done();
+          console.log('err in auth from token');
         });
     });
   });
