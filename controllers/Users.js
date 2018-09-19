@@ -53,6 +53,7 @@ router.get('/prescription/by/email', (req, res) => {
     });
 });
 
+// route for providers to get a list of all their clients
 router.get('/clients', (req, res) => {
   db.User.find({ where: { provider: req.body.id } })
     .then(results => {
