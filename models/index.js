@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // create and/or connect to database
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/backend-pt',
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/homePT',
   { useNewUrlParser: true });
 
 // Deprecation warning: https://github.com/Automattic/mongoose/issues/6922
