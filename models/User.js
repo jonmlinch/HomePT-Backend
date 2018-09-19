@@ -1,3 +1,5 @@
+/* This model represents all logged in users for the app. For client user
+ * types, it also provides quick access to their active prescription. */
 // ORM
 const mongoose = require('mongoose');
 // for password hashing

@@ -1,3 +1,5 @@
+/* An assigned excercise is a partial piece of a prescription. Clients may give
+ * feedback per excercise to help providers during the recovery process. */
 // ORM
 const mongoose = require('mongoose');
 

@@ -1,3 +1,6 @@
+/* A comment is a single piece of feedback, by the client, to the provider. It
+ * is associated with an individual excercise that was assigned to the client.
+ * */
 // ORM
 const mongoose = require('mongoose');
 

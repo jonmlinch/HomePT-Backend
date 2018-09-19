@@ -1,3 +1,7 @@
+/* A prescription is a record of a single assignment of excercises to be
+ * performed. It is a representation of a real world prescription written by
+  * a provider to their client. */
+
 // ORM
 const mongoose = require('mongoose');
 
