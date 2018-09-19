@@ -5,7 +5,8 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 
-router.get('/comments/by/client', (req, res) => {
+// NOTE provider and client access (unqiue providers & clients)
+router.get('/comments', (req, res) => {
   db.Comment.find({
     where: { client: req.body.id }
   })
@@ -17,6 +18,7 @@ router.get('/comments/by/client', (req, res) => {
     });
 });
 
+// NOTE client only
 router.post('/comments', (req, res) => {
   db.Comment.create(req.body)
     .then(newEx => {
