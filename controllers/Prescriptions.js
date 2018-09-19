@@ -5,7 +5,7 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 
-router.get('/prescriptions', (req, res) => {
+router.get('/', (req, res) => {
   // TODO figure out if populating is good or not here
   db.Prescription.find({})
     .then(results => {
@@ -17,7 +17,7 @@ router.get('/prescriptions', (req, res) => {
 });
 
 // NOTE not populating assigned exercises, just an overview
-router.get('/prescriptions/by/provider', (req, res) => {
+router.get('/by/provider', (req, res) => {
   db.Prescription.find({
     where: { provider: req.body.id }
   })
@@ -31,7 +31,7 @@ router.get('/prescriptions/by/provider', (req, res) => {
 
 // TODO figure out how to use this, syntax-wise, with jon
 // TODO upgrade this hacky implementation
-router.post('/prescriptions', (req, res) => {
+router.post('/', (req, res) => {
   db.Prescription.create(req.body)
     .then(newEx => {
       res.status(201).send({ success: 'Prescription created' });

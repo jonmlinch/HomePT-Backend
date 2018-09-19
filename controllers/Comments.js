@@ -6,7 +6,7 @@ const db = require('../models');
 const router = express.Router();
 
 // NOTE provider and client access (unqiue providers & clients)
-router.get('/comments', (req, res) => {
+router.get('/', (req, res) => {
   db.Comment.find({
     where: { client: req.body.id }
   })
@@ -19,7 +19,7 @@ router.get('/comments', (req, res) => {
 });
 
 // NOTE client only
-router.post('/comments', (req, res) => {
+router.post('/', (req, res) => {
   db.Comment.create(req.body)
     .then(newEx => {
       res.status(201).send({ success: 'Comment created' });
