@@ -5,16 +5,6 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 
-router.get('/comments', (req, res) => {
-  db.Comment.find({})
-    .then(results => {
-      res.status(200).send({ comments: results });
-    })
-    .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
-    });
-});
-
 router.get('/comments/by/client', (req, res) => {
   db.Comment.find({
     where: { client: req.body.id }
@@ -27,19 +17,6 @@ router.get('/comments/by/client', (req, res) => {
     });
 });
 
-router.get('/comments/by/provider', (req, res) => {
-  db.Comment.find({
-    where: { provider: req.body.id }
-  })
-    .then(results => {
-      res.status(200).send({ comments: results });
-    })
-    .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
-    });
-});
-
-// TODO upgrade this hacky implementation
 router.post('/comments', (req, res) => {
   db.Comment.create(req.body)
     .then(newEx => {
