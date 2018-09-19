@@ -22,9 +22,35 @@ router.get('/by/email', (req, res) => {
 
 // TODO email or id?
 router.get('/prescription', (req, res) => {
+  db.User.findById(req.body.id)
+    .populate('prescription')
+    .then(result => {
+      if (result) {
+        res.status(200).send({ prescription: result.prescription })
+      }
+      else {
+        res.status(400).send({ err: 'User not found' });
+      }
+    })
+    .catch(err => {
+      console.log('err in db query:', err);
+    });
 });
 
 router.get('/prescription/by/email', (req, res) => {
+  db.User.find({ where: { email: req.body.email } })
+    .populate('prescription')
+    .then(result => {
+      if (result) {
+        res.status(200).send({ prescription: result.prescription })
+      }
+      else {
+        res.status(400).send({ err: 'User not found' });
+      }
+    })
+    .catch(err => {
+      console.log('err in db query:', err);
+    });
 });
 
 module.exports = router;
