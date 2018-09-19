@@ -9,6 +9,9 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 
+// TODO
+// router.post('/pass',
+
 // endpoint for logging in users
 router.post('/login', (req, res) => {
   // look for user in database

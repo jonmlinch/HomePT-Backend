@@ -53,5 +53,20 @@ router.get('/prescription/by/email', (req, res) => {
     });
 });
 
+router.get('/clients', (req, res) => {
+  db.User.find({ where: provider: req.body.id })
+    .then(results => {
+      if (results) {
+        res.status(200).send({ clients: results });
+      }
+      else {
+        res.status(400).send({ err: 'No clients found' });
+      }
+    })
+    .catch(err => {
+      console.log('err in db query:', err);
+    });
+});
+
 module.exports = router;
 
