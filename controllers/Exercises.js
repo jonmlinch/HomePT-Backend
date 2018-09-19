@@ -5,6 +5,7 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 
+// get all excercises
 router.get('/exercises', (req, res) => {
   db.Exercise.find({})
     .then(results => {
@@ -27,7 +28,6 @@ router.get('/exercises/by/name', (req, res) => {
     });
 });
 
-// TODO upgrade this hacky implementation
 router.post('/exercises', (req, res) => {
   db.Exercise.create(req.body)
     .then(newEx => {
