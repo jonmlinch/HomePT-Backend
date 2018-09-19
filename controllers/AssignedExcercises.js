@@ -12,7 +12,7 @@ router.patch('/', (req, res) => {
       target = new db.AssignedExcercise(req.body);
       // TODO handle error?
       target.save();
-      res.status(200).send({ 'Successfully updated assignment });
+      res.status(200).send('Successfully updated assignment');
     })
     .catch(err => {
       res.status(503).send({ err: 'database err' });

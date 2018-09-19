@@ -10,4 +10,4 @@ const assignedExcerciseSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('AssignedExcercise', assignedExcercise);
+module.exports = mongoose.model('AssignedExcercise', assignedExcerciseSchema);
