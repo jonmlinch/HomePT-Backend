@@ -14,3 +14,5 @@ const presciptionSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Prescription', presciptionSchema);
+
+// TODO add a hook to update User model
