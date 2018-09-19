@@ -45,7 +45,11 @@ app.use('/prescriptions', require('./controllers/Prescriptions'));
 app.use('/comments', require('./controllers/Comments'));
 app.use('/users', require('./controllers/Users'));
 // TODO ask jon if he wants /assignments instead
+<<<<<<< HEAD
 app.use('/assignedExcercises', require('./controllers/AssignedExercises'));
+=======
+app.use('/assignedExercises', require('./controllers/AssignedExercises'));
+>>>>>>> 0b367fa32863bc0237e3fbf087f699d05d997875
 
 // start listening
 app.listen(3000, function() {
