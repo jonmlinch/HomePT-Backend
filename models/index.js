@@ -13,4 +13,4 @@ module.exports.User = require('./User');
 module.exports.Exercise = require('./Exercise');
 module.exports.Prescription = require('./Prescription');
 module.exports.Comment = require('./Comment');
-module.exports.AssignedExcercise = require('./AssignedExcercise');
+module.exports.AssignedExercise = require('./AssignedExercise');
