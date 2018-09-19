@@ -13,7 +13,8 @@ const feedbackSchema = new mongoose.Schema({
 
 const commentSchema = new mongoose.Schema({
   client: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  excercise: { type: mongoose.Schema.Types.ObjectId, ref: 'AssignedExcercise' },
+  assignedExcercise: { type: mongoose.Schema.Types.ObjectId,
+    ref: 'AssignedExcercise' },
   date: { type: Date, default: Date.now },
   feedback: feedbackSchema
 });
