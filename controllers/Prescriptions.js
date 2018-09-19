@@ -16,31 +16,20 @@ router.get('/prescriptions', (req, res) => {
     });
 });
 
-router.get('/prescriptions/by/client', (req, res) => {
-  db.Prescription.find({
-    where: { client: req.body.id }
-  })
-    .populate('assignedExcercises')
-    .then(result => {
-      res.status(200).send({ prescription: result });
-    })
-    .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
-    });
-});
-
+// NOTE not populating assigned exercises, just an overview
 router.get('/prescriptions/by/provider', (req, res) => {
   db.Prescription.find({
     where: { provider: req.body.id }
   })
     .then(results => {
-      res.status(200).send({ exercises: results });
+      res.status(200).send({ prescriptions: results });
     })
     .catch(err => {
       res.status(400).send({ err: 'Undocumented err' });
     });
 });
 
+// TODO figure out how to use this, syntax-wise, with jon
 // TODO upgrade this hacky implementation
 router.post('/prescriptions', (req, res) => {
   db.Prescription.create(req.body)
