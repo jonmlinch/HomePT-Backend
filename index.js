@@ -44,6 +44,8 @@ app.use('/exercises', require('./controllers/Exercises'));
 app.use('/prescriptions', require('./controllers/Prescriptions'));
 app.use('/comments', require('./controllers/Comments'));
 app.use('/users', require('./controllers/Users'));
+// TODO ask jon if he wants /assignments instead
+app.use('/assignedExcercises', require('./controllers/AssignedExcercises'));
 
 // start listening
 app.listen(3000, function() {

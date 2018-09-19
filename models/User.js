@@ -1,3 +1,5 @@
+/* This model represents all logged in users for the app. For client user
+ * types, it also provides quick access to their active prescription. */
 // ORM
 const mongoose = require('mongoose');
 // for password hashing
@@ -54,8 +56,8 @@ const userSchema = new mongoose.Schema({
     validate: [validateType, 'That account type does not exist.']
   },
   provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  prescriptions: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Prescription' }]
+  prescription: {
+    type: { type: mongoose.Schema.Types.ObjectId, ref: 'Prescription' }
   },
   admin: {
     type: Boolean,

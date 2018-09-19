@@ -1,3 +1,6 @@
+/* A comment is a single piece of feedback, by the client, to the provider. It
+ * is associated with an individual excercise that was assigned to the client.
+ * */
 // ORM
 const mongoose = require('mongoose');
 
@@ -9,11 +12,10 @@ const feedbackSchema = new mongoose.Schema({
 });
 
 const commentSchema = new mongoose.Schema({
-  provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   client: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  prescription: { type: mongoose.Schema.Types.ObjectId, ref: 'Prescription' },
+  excercise: { type: mongoose.Schema.Types.ObjectId, ref: 'AssignedExcercise' },
   date: { type: Date, default: Date.now },
   feedback: feedbackSchema
 });
 
-module.exports = mongoose.model('Feedback', commentSchema);
+module.exports = mongoose.model('Comment', commentSchema);

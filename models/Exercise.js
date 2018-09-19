@@ -1,3 +1,6 @@
+/* Excercises are the core content of the app. Each exercise has an
+ * instructional video and may have accompanying general instructions (these
+ * instructions would be available to all clients) */
 // ORM
 const mongoose = require('mongoose');
 
@@ -8,7 +11,8 @@ const instructionsSchema = new mongoose.Schema({
 
 const exerciseSchema = new mongoose.Schema({
   video: { // TODO validate url
-    type: String
+    type: String,
+    required: true
   },
   name: String,
   instructions: instructionsSchema

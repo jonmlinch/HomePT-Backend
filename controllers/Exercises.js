@@ -5,7 +5,8 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 
-router.get('/exercises', (req, res) => {
+// get all excercises
+router.get('/', (req, res) => {
   db.Exercise.find({})
     .then(results => {
       res.status(200).send({ exercises: results });
@@ -15,7 +16,7 @@ router.get('/exercises', (req, res) => {
     });
 });
 
-router.get('/exercises/by/name', (req, res) => {
+router.get('/by/name', (req, res) => {
   db.Exercise.findOne({
     where: { name: req.body.name }
   })
@@ -27,8 +28,7 @@ router.get('/exercises/by/name', (req, res) => {
     });
 });
 
-// TODO upgrade this hacky implementation
-router.post('/exercises', (req, res) => {
+router.post('/', (req, res) => {
   db.Exercise.create(req.body)
     .then(newEx => {
       res.status(201).send({ success: 'Exercise created' });

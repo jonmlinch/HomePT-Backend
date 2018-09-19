@@ -5,42 +5,33 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 
-router.get('/prescriptions', (req, res) => {
+router.get('/', (req, res) => {
+  // TODO figure out if populating is good or not here
   db.Prescription.find({})
     .then(results => {
-      res.status(200).send({ prescripts: results });
+      res.status(200).send({ prescriptions: results });
     })
     .catch(err => {
       res.status(400).send({ err: 'Undocumented err' });
     });
 });
 
-router.get('/prescriptions/by/client', (req, res) => {
-  db.Prescription.find({
-    where: { client: req.body.id }
-  })
-    .then(results => {
-      res.status(200).send({ exercises: results });
-    })
-    .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
-    });
-});
-
-router.get('/prescriptions/by/provider', (req, res) => {
+// NOTE not populating assigned exercises, just an overview
+router.get('/by/provider', (req, res) => {
   db.Prescription.find({
     where: { provider: req.body.id }
   })
     .then(results => {
-      res.status(200).send({ exercises: results });
+      res.status(200).send({ prescriptions: results });
     })
     .catch(err => {
       res.status(400).send({ err: 'Undocumented err' });
     });
 });
 
+// TODO figure out how to use this, syntax-wise, with jon
 // TODO upgrade this hacky implementation
-router.post('/prescriptions', (req, res) => {
+router.post('/', (req, res) => {
   db.Prescription.create(req.body)
     .then(newEx => {
       res.status(201).send({ success: 'Prescription created' });
