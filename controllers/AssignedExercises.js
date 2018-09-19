@@ -6,10 +6,10 @@ const db = require('../models');
 const router = express.Router();
 
 router.patch('/', (req, res) => {
-  db.AssignedExcercise.findById(req.body.id)
+  db.AssignedExercise.findById(req.body.id)
     .then(target => {
       // TODO syntax
-      target = new db.AssignedExcercise(req.body);
+      target = new db.AssignedExercise(req.body);
       // TODO handle error?
       target.save();
       res.status(200).send('Successfully updated assignment');
