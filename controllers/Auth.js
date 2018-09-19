@@ -55,6 +55,7 @@ router.post('/signup', (req, res) => {
 router.post('/me/from/token', function(req, res) {
   db.User.findById(req.user.id)
     .then(user => {
+
       if (user) {
         return res.status(200).send({ user });
       }
