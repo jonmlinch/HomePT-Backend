@@ -6,9 +6,10 @@ const db = require('../models');
 const router = express.Router();
 
 router.get('/prescriptions', (req, res) => {
+  // TODO figure out if populating is good or not here
   db.Prescription.find({})
     .then(results => {
-      res.status(200).send({ prescripts: results });
+      res.status(200).send({ prescriptions: results });
     })
     .catch(err => {
       res.status(400).send({ err: 'Undocumented err' });
@@ -19,8 +20,9 @@ router.get('/prescriptions/by/client', (req, res) => {
   db.Prescription.find({
     where: { client: req.body.id }
   })
-    .then(results => {
-      res.status(200).send({ exercises: results });
+    .populate('assignedExcercises')
+    .then(result => {
+      res.status(200).send({ prescription: result });
     })
     .catch(err => {
       res.status(400).send({ err: 'Undocumented err' });

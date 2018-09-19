@@ -54,8 +54,8 @@ const userSchema = new mongoose.Schema({
     validate: [validateType, 'That account type does not exist.']
   },
   provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  prescriptions: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Prescription' }]
+  prescription: {
+    type: { type: mongoose.Schema.Types.ObjectId, ref: 'Prescription' }
   },
   admin: {
     type: Boolean,

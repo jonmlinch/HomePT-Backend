@@ -20,4 +20,11 @@ router.get('/by/email', (req, res) => {
     });
 });
 
+// TODO email or id?
+router.get('/prescription', (req, res) => {
+});
+
+router.get('/prescription/by/email', (req, res) => {
+});
+
 module.exports = router;
