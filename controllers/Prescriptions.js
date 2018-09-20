@@ -19,9 +19,11 @@ router.get('/by/provider', (req, res) => {
     });
 });
 
-// TODO figure out how to use this, syntax-wise, with jon
+// TODO figure out how to use this, syntax-wise, with jon (assigned ex)
 // TODO upgrade this hacky implementation
 router.post('/', (req, res) => {
+  // WARN req.body probably not good enough
+  // TODO create all assigned exercises here OR use a hook in Prescription
   db.Prescription.create(req.body)
     .then(newEx => {
       res.status(201).send({ success: 'Prescription created' });

@@ -39,10 +39,11 @@ router.get('/prescription', (req, res) => {
     });
 });
 
-// TODO determine usefulness
+// TODO determine usefulness & update syntax
 router.get('/prescription/by/email', (req, res) => {
   db.User.find({ where: { email: req.body.email } })
     .populate('prescription')
+    .populate('assignedExercises')
     .then(result => {
       if (result) {
         res.status(200).send({ prescription: result.prescription })
