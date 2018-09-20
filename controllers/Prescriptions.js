@@ -19,18 +19,21 @@ router.get('/by/provider', (req, res) => {
     });
 });
 
-// TODO figure out how to use this, syntax-wise, with jon (assigned ex)
-// TODO upgrade this hacky implementation
+// given data for a prescription and its assigned exercises, creates it
 router.post('/', (req, res) => {
-  // WARN req.body probably not good enough
+  // TODO make sure req.body is clean
+  console.log('req.body is', req.body);
+  const input = req.body;
+  // TODO process input, if needed
   // TODO create all assigned exercises here OR use a hook in Prescription
-  db.Prescription.create(req.body)
+  // TODO create prescription using input (all of it or partial?)
+  db.Prescription.create(input)
     .then(newEx => {
       res.status(201).send({ success: 'Prescription created' });
     })
     .catch(err => {
       console.log(err);
-      res.status(400).send({ err: 'Undocumented error' });
+      res.status(503).send({ err: 'Could not create prescription' });
     });
 });
 
