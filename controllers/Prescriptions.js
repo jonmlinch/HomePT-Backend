@@ -5,16 +5,22 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 
+// given a client's id, returns prescription and assigned exercises
 router.get('/', (req, res) => {
-  // TODO figure out if populating is good or not here
   db.Prescription.find({
     where: { client: req.body.id }
   })
-    .then(results => {
-      res.status(200).send({ prescriptions: results });
+    .populate('assignedExercises')
+    .then(result => {
+      if (result !== []) {
+        res.status(200).send({ prescription: result });
+      }
+      else {
+        res.status(400).send({ err: 'No prescription found for that client' });
+      }
     })
     .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
+      res.status(503).send({ err: 'DB Query err' });
     });
 });
 
