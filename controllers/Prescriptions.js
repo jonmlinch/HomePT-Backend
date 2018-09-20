@@ -37,4 +37,19 @@ router.post('/', (req, res) => {
     });
 });
 
+router.patch('/', (req, res) => {
+  db.Prescription.findById(req.body.id)
+    .then(result => {
+      if (result) {
+        // TODO result.update(req.body)
+      }
+      else {
+        res.status(404).send({ err: 'Prescription not found' });
+      }
+    })
+    .catch(err => {
+      res.status(503).send({ err: 'DB Query err' });
+    });
+});
+
 module.exports = router;
