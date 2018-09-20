@@ -16,11 +16,10 @@ router.get('/by/email', (req, res) => {
       }
     })
     .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
+      res.status(503).send({ err: 'DB Query err' });
     });
 });
 
-// TODO email or id?
 router.get('/prescription', (req, res) => {
   db.User.findById(req.body.id)
     .populate('prescription')
@@ -57,7 +56,7 @@ router.get('/prescription/by/email', (req, res) => {
 router.get('/clients', (req, res) => {
   db.User.find({ where: { provider: req.body.id } })
     .then(results => {
-      if (results) {
+      if (results !== []) {
         res.status(200).send({ clients: results });
       }
       else {
