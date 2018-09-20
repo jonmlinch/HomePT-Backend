@@ -5,18 +5,8 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  // TODO figure out if populating is good or not here
-  db.Prescription.find({})
-    .then(results => {
-      res.status(200).send({ prescriptions: results });
-    })
-    .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
-    });
-});
-
-// NOTE not populating assigned exercises, just an overview
+// returns an array of prescriptions written by provider
+// NOTE not returning assigned exercises, just an overview
 router.get('/by/provider', (req, res) => {
   db.Prescription.find({
     where: { provider: req.body.id }
@@ -29,16 +19,36 @@ router.get('/by/provider', (req, res) => {
     });
 });
 
-// TODO figure out how to use this, syntax-wise, with jon
-// TODO upgrade this hacky implementation
+// given data for a prescription and its assigned exercises, creates it
 router.post('/', (req, res) => {
-  db.Prescription.create(req.body)
+  // TODO make sure req.body is clean
+  console.log('req.body is', req.body);
+  const input = req.body;
+  // TODO process input, if needed
+  // TODO create all assigned exercises here OR use a hook in Prescription
+  // TODO create prescription using input (all of it or partial?)
+  db.Prescription.create(input)
     .then(newEx => {
       res.status(201).send({ success: 'Prescription created' });
     })
     .catch(err => {
       console.log(err);
-      res.status(400).send({ err: 'Undocumented error' });
+      res.status(503).send({ err: 'Could not create prescription' });
+    });
+});
+
+router.patch('/', (req, res) => {
+  db.Prescription.findById(req.body.id)
+    .then(result => {
+      if (result) {
+        // TODO result.update(req.body)
+      }
+      else {
+        res.status(404).send({ err: 'Prescription not found' });
+      }
+    })
+    .catch(err => {
+      res.status(503).send({ err: 'DB Query err' });
     });
 });
 

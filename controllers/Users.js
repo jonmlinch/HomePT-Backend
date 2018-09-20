@@ -16,14 +16,16 @@ router.get('/by/email', (req, res) => {
       }
     })
     .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
+      res.status(503).send({ err: 'DB Query err' });
     });
 });
 
-// TODO email or id?
+// TODO syntax for populating active exercises
+// returns a User's active prescription and its assigned exercises
 router.get('/prescription', (req, res) => {
   db.User.findById(req.body.id)
     .populate('prescription')
+    .populate('assignedExercises')
     .then(result => {
       if (result) {
         res.status(200).send({ prescription: result.prescription })
@@ -37,9 +39,11 @@ router.get('/prescription', (req, res) => {
     });
 });
 
+// TODO determine usefulness & update syntax
 router.get('/prescription/by/email', (req, res) => {
   db.User.find({ where: { email: req.body.email } })
     .populate('prescription')
+    .populate('assignedExercises')
     .then(result => {
       if (result) {
         res.status(200).send({ prescription: result.prescription })
