@@ -7,7 +7,9 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   // TODO figure out if populating is good or not here
-  db.Prescription.find({})
+  db.Prescription.find({
+    where: { client: req.body.id }
+  })
     .then(results => {
       res.status(200).send({ prescriptions: results });
     })

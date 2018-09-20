@@ -16,15 +16,18 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/by/name', (req, res) => {
-  db.Exercise.findOne({
-    where: { name: req.body.name }
-  })
+router.get('/one', (req, res) => {
+  db.Exercise.findById(req.body.id)
     .then(result => {
-      res.status(200).send({ exercise: result });
+      if (result) {
+        res.status(200).send({ exercise: result });
+      }
+      else {
+        res.status(400).send({ err: 'Exercise not found' });
+      }
     })
     .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
+      res.status(503).send({ err: 'DB Query err' });
     });
 });
 
