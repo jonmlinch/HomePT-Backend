@@ -13,8 +13,4 @@ module.exports.User = require('./User');
 module.exports.Exercise = require('./Exercise');
 module.exports.Prescription = require('./Prescription');
 module.exports.Comment = require('./Comment');
-<<<<<<< HEAD
-module.exports.AssignedExcercise = require('./AssignedExercise');
-=======
 module.exports.AssignedExercise = require('./AssignedExercise');
->>>>>>> 0b367fa32863bc0237e3fbf087f699d05d997875
