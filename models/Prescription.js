@@ -4,6 +4,8 @@
 
 // ORM
 const mongoose = require('mongoose');
+// TODO determine if this is a good require
+const User = require('./User');
 
 const presciptionSchema = new mongoose.Schema({
   provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -13,7 +15,18 @@ const presciptionSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Prescription', presciptionSchema);
-
 // TODO add a hook to update User model
 // NOTE after create, change relevant User's .prescription to point to this.id
+prescriptionSchema.post('save', function(doc) {
+  // find the client's user model
+  User.findById(doc.client)
+    .then(result => {
+      result.prescription = doc._id;
+      result.save();
+    })
+    .catch(err => {
+      console.log('err finding client to make prescript active:', err);
+    })
+});
+
+module.exports = mongoose.model('Prescription', presciptionSchema);
