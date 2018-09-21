@@ -30,6 +30,7 @@ router.post('/', async (req, res) => {
   const clientId = req.body.clientId;
   // get array of to-be assigned exercise objects
   const exsToAssign = req.body.prescriptionData;
+  const assignedExs = [];
   // create an AssignedExercise for each prescribed ex
   async.each(exsToAssign, async function(ex, done) {
     // setup data for create
@@ -39,9 +40,16 @@ router.post('/', async (req, res) => {
       reps: ex.repInfo,
       freq: ex.freqInfo
     }
-    // TODO can i use catch with await?
-    await db.AssignedExercise.create(ex);
-    done();
+    db.AssignedExercise.create(createData)
+      .then(success => {
+        console.log('success return of creating AE is:', success);
+        assignedExs.push(success);
+        done();
+      })
+      .catch(err => {
+        console.log('err creating AE:', err);
+        done();
+      });
   }, function() {
     // TODO create prescription, NOTE prescription will assign itself as active
     // TODO create prescription using input (all of it or partial?)
