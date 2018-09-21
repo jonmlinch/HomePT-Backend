@@ -21,8 +21,17 @@ router.get('/', (req, res) => {
 // NOTE client only
 router.post('/', (req, res) => {
   // TODO process data
-  const createData = { 
-
+  const feedbackData = {
+    RPEData: req.body.RPEData,
+    pain: req.body.pain,
+    painLocation: req.body.painLocation,
+    painSeverity: req.body.painSeverity,
+    addlComments: req.body.addlComments
+  }
+  // TODO finish
+  const createData = {
+    provider: req.body,
+    client: req,body
   };
   db.Comment.create(createData)
     .then(newEx => {
