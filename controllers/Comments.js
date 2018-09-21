@@ -33,6 +33,22 @@ router.post('/', (req, res) => {
 });
 
 router.delete('/', (req, res) => {
+  db.Comment.deleteOne({ where: { id: req.body.id } })
+    .then(result => {
+      if (result) {
+        console.log('successfully deleted Comment:', result);
+        res.status(204).send({ success: 'Comment deleted' });
+      }
+      else {
+        console.log('could not find comment to delete');
+        res.status(404).send({ err: 'Comment not found' });
+      }
+
+    })
+    .catch(err => {
+      console.log('err in del act of Comment');
+      res.status(503).send({ err: 'Delete query for Comment failure' });
+    });
 });
 
 module.exports = router;
