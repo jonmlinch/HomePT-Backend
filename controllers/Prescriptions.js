@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
   const exsToAssign = req.body.prescriptionData;
   const assignedExs = [];
   // create an AssignedExercise for each prescribed ex
-  async.each(exsToAssign, async function(ex, done) {
+  async.each(exsToAssign, function(ex, done) {
     // setup data for create
     const createData = {
       client: clientId,
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
     db.AssignedExercise.create(createData)
       .then(success => {
         console.log('success return of creating AE is:', success);
-        assignedExs.push(success);
+        assignedExs.push(success.id);
         done();
       })
       .catch(err => {
@@ -51,19 +51,24 @@ router.post('/', async (req, res) => {
         done();
       });
   }, function() {
-    // TODO create prescription, NOTE prescription will assign itself as active
-    // TODO create prescription using input (all of it or partial?)
-    db.Prescription.create(input)
-      .then(newEx => {
+    // TODO add AEs to prescription
+    console.log('list of AEs to add:', assignedExs);
+    const createData = {
+      provider: providerId,
+      client: clientId,
+      assignedExercises: assignedExs
+    }
+    db.Prescription.create(createData)
+      .then(success => {
         res.status(201).send({ success: 'Prescription created' });
+        console.log('finished successfully creating prescription');
       })
       .catch(err => {
         console.log(err);
         res.status(503).send({ err: 'Could not create prescription' });
+        console.log('finished unsuccessfully creating prescription');
       });
-
   });
-
 });
 
 router.patch('/', (req, res) => {

@@ -15,18 +15,18 @@ const presciptionSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
-// TODO add a hook to update User model
-// NOTE after create, change relevant User's .prescription to point to this.id
-presciptionSchema.post('save', function(doc) {
-  // find the client's user model
-  User.findById(doc.client)
-    .then(result => {
-      result.prescription = doc._id;
-      result.save();
-    })
-    .catch(err => {
-      console.log('err finding client to make prescript active:', err);
-    })
-});
+// // TODO add a hook to update User model
+// // NOTE after create, change relevant User's .prescription to point to this.id
+// presciptionSchema.post('save', function(doc) {
+  // // find the client's user model
+  // User.findById(doc.client)
+    // .then(result => {
+      // result.prescription = doc._id;
+      // result.save();
+    // })
+    // .catch(err => {
+      // console.log('err finding client to make prescript active:', err);
+    // })
+// });
 
 module.exports = mongoose.model('Prescription', presciptionSchema);
