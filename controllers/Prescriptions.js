@@ -23,14 +23,22 @@ router.get('/by/provider', (req, res) => {
 
 // given data for a prescription and its assigned exercises, creates it
 router.post('/', async (req, res) => {
-  // TODO make sure req.body is clean
-  console.log('req.body is', req.body);
-  const input = req.body;
-  // TODO process input, if needed
-  // TODO create all assigned exercises here OR use a hook in Prescription
-  // TODO fill toAssignExs array with to-be AssignedExercise objects
-  const toAssignExs = null;
-  async.each(toAssignExs, async function(ex, done) {
+  console.log('req.body in create prescript is', req.body);
+  // get provider's id
+  const providerId = req.body.providerId;
+  // get client's id
+  const clientId = req.body.clientId;
+  // get array of to-be assigned exercise objects
+  const exsToAssign = req.body.prescriptionData;
+  // create an AssignedExercise for each prescribed ex
+  async.each(exsToAssign, async function(ex, done) {
+    // setup data for create
+    const createData = {
+      client: clientId,
+      exercise: ex.exerciseId,
+      reps: ex.repInfo,
+      freq: ex.freqInfo
+    }
     // TODO can i use catch with await?
     await db.AssignedExercise.create(ex);
     done();
