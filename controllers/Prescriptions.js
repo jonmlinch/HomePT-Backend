@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
   // TODO create all assigned exercises here OR use a hook in Prescription
   // TODO fill toAssignExs array with to-be AssignedExercise objects
   const toAssignExs = null;
-  async.each(toAssignExs, function(ex, done) {
+  async.each(toAssignExs, async function(ex, done) {
     // TODO can i use catch with await?
     await db.AssignedExercise.create(ex);
     done();

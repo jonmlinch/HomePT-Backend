@@ -17,16 +17,16 @@ const presciptionSchema = new mongoose.Schema({
 
 // TODO add a hook to update User model
 // NOTE after create, change relevant User's .prescription to point to this.id
-prescriptionSchema.post('save', function(doc) {
-  // find the client's user model
-  User.findById(doc.client)
-    .then(result => {
-      result.prescription = doc._id;
-      result.save();
-    })
-    .catch(err => {
-      console.log('err finding client to make prescript active:', err);
-    })
-});
+// prescriptionSchema.post('save', function(doc) {
+  // // find the client's user model
+  // User.findById(doc.client)
+    // .then(result => {
+      // result.prescription = doc._id;
+      // result.save();
+    // })
+    // .catch(err => {
+      // console.log('err finding client to make prescript active:', err);
+    // })
+// });
 
-module.exports = mongoose.model('Prescription', presciptionSchema);
+// module.exports = mongoose.model('Prescription', presciptionSchema);
