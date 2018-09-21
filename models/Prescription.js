@@ -4,6 +4,8 @@
 
 // ORM
 const mongoose = require('mongoose');
+// TODO determine if this is a good require
+const User = require('./User');
 
 const presciptionSchema = new mongoose.Schema({
   provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -13,7 +15,18 @@ const presciptionSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Prescription', presciptionSchema);
+// // TODO add a hook to update User model
+// // NOTE after create, change relevant User's .prescription to point to this.id
+presciptionSchema.post('save', function(doc) {
+  console.log('doc is:', doc);
+  // find the client's user model
+  User.update({ _id: doc.client }, { $set: { prescription: doc.id } },
+    finishedUpdateAttempt);
+});
 
-// TODO add a hook to update User model
-// NOTE after create, change relevant User's .prescription to point to this.id
+// helper callback function to notify end of update attempt
+function finishedUpdateAttempt() {
+  console.log('finished update attempt');
+}
+
+module.exports = mongoose.model('Prescription', presciptionSchema);

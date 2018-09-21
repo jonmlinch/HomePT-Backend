@@ -62,7 +62,7 @@ router.get('/clients/:providerId', (req, res) => {
   console.log('PARAMS', req.params)
   db.User.find({provider: req.params.providerId})
     .then(results => {
-      if (results) {
+      if (results !== []) {
         console.log('RESULT ARRAY', results)
         return res.status(200).send({ clients: results });
       }
