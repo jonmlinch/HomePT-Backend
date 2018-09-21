@@ -21,7 +21,9 @@ router.get('/', (req, res) => {
 // NOTE client only
 router.post('/', (req, res) => {
   // TODO process data
-  const createData = { };
+  const createData = { 
+
+  };
   db.Comment.create(createData)
     .then(newEx => {
       res.status(201).send({ success: 'Comment created' });

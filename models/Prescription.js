@@ -18,7 +18,7 @@ const presciptionSchema = new mongoose.Schema({
 // // TODO add a hook to update User model
 // // NOTE after create, change relevant User's .prescription to point to this.id
 presciptionSchema.post('save', function(doc) {
-  const thisPrescriptsId = mongoose.TYpes.ObjectId(doc.id);
+  const thisPrescriptsId = mongoose.Types.ObjectId(doc.id);
   console.log('doc is:', doc);
   // find the client's user model
   User.update({ _id: doc.client }, { $set: { prescription: thisPrescriptsId } },
