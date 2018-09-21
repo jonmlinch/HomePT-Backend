@@ -1,0 +1,39 @@
+{
+    "providers": {
+        "_model": "User",
+        "popularProvider":
+        {
+            "email": "popular@provider.org",
+            "name": "popular provider",
+            "password": "testaccount",
+            "type": "provider"
+        }
+    },
+    "clients": {
+        "_model": "User",
+        "firstClient":
+        {
+            "email": "first@client.org",
+            "name": "first client",
+            "password": "testaccount",
+            "type": "client",
+            "provider": "->providers.popularProvider"
+        },
+        "secondClient":
+        {
+            "email": "second@client.org",
+            "name": "second client",
+            "password": "testaccount",
+            "type": "client",
+            "provider": "->providers.popularProvider"
+        },
+        "thirdClient":
+        {
+            "email": "third@client.org",
+            "name": "third client",
+            "password": "testaccount",
+            "type": "client",
+            "provider": "->providers.popularProvider"
+        }
+    }
+}
