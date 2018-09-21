@@ -24,8 +24,10 @@ router.get('/by/email', (req, res) => {
 // returns a User's active prescription and its assigned exercises
 router.get('/prescription', (req, res) => {
   db.User.findById(req.body.id)
-    .populate('prescription')
-    .populate('assignedExercises')
+    .populate({
+      path: 'prescription',
+      populate: { path: 'assignedExercises' }
+    })
     .then(result => {
       if (result) {
         res.status(200).send({ prescription: result.prescription })
