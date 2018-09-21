@@ -20,7 +20,9 @@ router.get('/', (req, res) => {
 
 // NOTE client only
 router.post('/', (req, res) => {
-  db.Comment.create(req.body)
+  // TODO process data
+  const createData = { };
+  db.Comment.create(createData)
     .then(newEx => {
       res.status(201).send({ success: 'Comment created' });
     })
@@ -28,6 +30,9 @@ router.post('/', (req, res) => {
       console.log(err);
       res.status(400).send({ err: 'Undocumented error' });
     });
+});
+
+router.delete('/', (req, res) => {
 });
 
 module.exports = router;

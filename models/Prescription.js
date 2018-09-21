@@ -22,20 +22,9 @@ presciptionSchema.post('save', function(doc) {
   // find the client's user model
   User.update({ _id: doc.client }, { $set: { prescription: doc.id } },
     finishedUpdateAttempt);
-    // .then(result => {
-      // if (result) {
-        // result.prescription = doc.id;
-        // result.save();
-      // }
-      // else {
-        // console.log('prescription created but made active on client');
-      // }
-    // })
-    // .catch(err => {
-      // console.log('err finding client to make prescript active:', err);
-    // })
 });
 
+// helper callback function to notify end of update attempt
 function finishedUpdateAttempt() {
   console.log('finished update attempt');
 }

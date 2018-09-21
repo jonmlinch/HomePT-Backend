@@ -35,6 +35,7 @@ router.post('/', async (req, res) => {
   async.each(exsToAssign, function(ex, done) {
     // setup data for create
     const createData = {
+      provider: providerId,
       client: clientId,
       exercise: ex.exerciseId,
       reps: ex.repInfo,
