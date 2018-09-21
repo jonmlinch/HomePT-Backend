@@ -48,6 +48,6 @@ app.use('/users', require('./controllers/Users'));
 app.use('/assignedExercises', require('./controllers/AssignedExercises'));
 
 // start listening
-app.listen(3000, function() {
+app.listen(process.env.port || 3000, function() {
   console.log('Server listening');
 });
