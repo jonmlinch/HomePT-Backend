@@ -5,6 +5,7 @@ const db = require('../models');
 // load router to export routes to /index.js
 const router = express.Router();
 // load async
+const async = require('async');
 
 // returns an array of prescriptions written by provider
 // NOTE not returning assigned exercises, just an overview
@@ -27,16 +28,26 @@ router.post('/', async (req, res) => {
   const input = req.body;
   // TODO process input, if needed
   // TODO create all assigned exercises here OR use a hook in Prescription
+  // TODO fill toAssignExs array with to-be AssignedExercise objects
+  const toAssignExs = null;
+  async.each(toAssignExs, function(ex, done) {
+    // TODO can i use catch with await?
+    await db.AssignedExercise.create(ex);
+    done();
+  }, function() {
+    // TODO create prescription, NOTE prescription will assign itself as active
+    // TODO create prescription using input (all of it or partial?)
+    db.Prescription.create(input)
+      .then(newEx => {
+        res.status(201).send({ success: 'Prescription created' });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(503).send({ err: 'Could not create prescription' });
+      });
 
-  // TODO create prescription using input (all of it or partial?)
-  db.Prescription.create(input)
-    .then(newEx => {
-      res.status(201).send({ success: 'Prescription created' });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(503).send({ err: 'Could not create prescription' });
-    });
+  });
+
 });
 
 router.patch('/', (req, res) => {
