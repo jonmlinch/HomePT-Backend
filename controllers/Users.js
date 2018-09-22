@@ -26,7 +26,7 @@ router.get('/prescription/:clientId', (req, res) => {
   db.User.findById(req.params.clientId)
     .populate('prescription')
     .populate({
-      path: 'prescription',
+      path: 'prescriptions',
       populate: { path: 'assignedExercises' }
     })
     .then(result => {
