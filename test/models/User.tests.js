@@ -1,4 +1,3 @@
-
 // unit test suite for wish model
 describe('User Model Unit Tests', function() {
 
