@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 describe('Auth Controller Unit Tests', function() {
 
   // for making test requests
