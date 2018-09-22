@@ -28,13 +28,17 @@ router.post('/', (req, res) => {
     painSeverity: req.body.painSeverity,
     addlComments: req.body.addlComments
   }
-  // TODO finish
   const createData = {
     provider: req.body.providerId,
     client: req.body.clientId
   };
+  // TODO finish
   db.Comment.create(createData)
     .then(newComment => {
+      console.log('newComment is', newComment);
+      newComment.feedback = feedbackData;
+      console.log('newComment.feedback is:', newComment.feedback);
+      newComment.save();
       res.status(201).send({ success: 'Comment created' });
     })
     .catch(err => {

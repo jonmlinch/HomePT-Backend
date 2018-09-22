@@ -29,6 +29,11 @@ router.get('/prescription/:clientId', (req, res) => {
       path: 'prescription',
       populate: { path: 'assignedExercises' }
     })
+    .populate({
+      path: 'prescription',
+      populate: { path: 'assignedExercises',
+        populate: { path: 'exercise' }}
+    })
     .then(result => {
       if (result) {
         console.log(result.prescription)
