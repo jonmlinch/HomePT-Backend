@@ -1,8 +1,12 @@
+const mongoose = require('mongoose');
 // unit test suite for wish model
 describe('Prescription Model Unit Tests', function() {
 
   // for db connection & models
   const db = require('../../models');
+  // overwrite mongoDB connection
+  mongoose.connect('mongodb://localhost/test_homePT',
+    { useNewUrlParser: true });
   // for chai's expect BDD syntax
   const expect = require('chai').expect;
 

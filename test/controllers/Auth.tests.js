@@ -6,6 +6,9 @@ describe('Auth Controller Unit Tests', function() {
   const expect = require('chai').expect;
   // for creating test samples
   const db = require('../../models');
+  // set DB to test (overwrite models/index.js)
+  mongoose.connect('mongodb://localhost/test_homePT',
+    { useNewUrlParser: true });
 
   // load server
   const server = request.agent('http://localhost:3000');
