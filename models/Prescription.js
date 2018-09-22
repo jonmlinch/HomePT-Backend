@@ -15,8 +15,7 @@ const presciptionSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
-// // TODO add a hook to update User model
-// // NOTE after create, change relevant User's .prescription to point to this.id
+// this hook will set this updated or new prescription as a client's active
 presciptionSchema.post('save', function(doc) {
   // const thisPrescriptsId = mongoose.Types.ObjectId(doc.id);
   console.log('doc is:', doc);

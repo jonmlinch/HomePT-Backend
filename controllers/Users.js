@@ -20,9 +20,9 @@ router.get('/by/email', (req, res) => {
     });
 });
 
-// TODO syntax for populating active exercises
 // returns a User's active prescription and its assigned exercises
 router.get('/prescription/:clientId', (req, res) => {
+  // include all data associated with prescription
   db.User.findById(req.params.clientId)
     .populate('prescription')
     .populate({
@@ -41,24 +41,6 @@ router.get('/prescription/:clientId', (req, res) => {
         console.log('assigned exercises is',
           result.prescription.assignedExercises);
         res.status(200).send({ result: result.prescription })
-      }
-      else {
-        res.status(400).send({ err: 'User not found' });
-      }
-    })
-    .catch(err => {
-      console.log('err in db query:', err);
-    });
-});
-
-// TODO determine usefulness & update syntax
-router.get('/prescription/by/email', (req, res) => {
-  db.User.find({ where: { email: req.body.email } })
-    .populate('prescription')
-    .populate('assignedExercises')
-    .then(result => {
-      if (result) {
-        res.status(200).send({ prescription: result.prescription })
       }
       else {
         res.status(400).send({ err: 'User not found' });
@@ -88,4 +70,3 @@ router.get('/clients/:providerId', (req, res) => {
 });
 
 module.exports = router;
-
