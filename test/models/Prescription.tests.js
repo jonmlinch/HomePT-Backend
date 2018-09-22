@@ -31,6 +31,8 @@ describe('Prescription Model Unit Tests', function() {
       .catch(function(err) {
         console.log('err in setup creating first provider:', err);
       });
+    // create exercises
+    // create assigned exercises
   });
 
   //
@@ -46,16 +48,25 @@ describe('Prescription Model Unit Tests', function() {
   });
 
   // Prescription.create tests
-  describe('duplicate user may not be created', function() {
-    it('should not allow a duplicate email to be added', async function() {
-      await db.User.create({ email: 'this@isOkay.org', name: 'any', password:
-        'thisisvalid', type: 'client' })
-        .then(function(success) {
-          expect(success).to.not.exist;
-        })
-        .catch(function(err) {
-          expect(err).to.exist;
+  // TODO new prescription is made active for client
+  describe('prescriptions are active for proper client when made', function()
+    {
+      it('should be presented as a ref in client\'s prescription field',
+        async function() {
+          // get client
+          const firstClient = await db.User.find({ where:
+            { email: 'first@client.org' } });
+          // get provider
+          const firstProvider = await db.User.find({ where:
+            { email: 'first@provider.org' } });
+          // create exercises
+          // create assigned exercises
+          // create prescription
+          await db.Prescription.create({
+            provider: firstProvider._id,
+            client: firstClient._id,
+          })
+          // expect client.prescription to be equal to prescription id
         });
-    });
   });
 });
