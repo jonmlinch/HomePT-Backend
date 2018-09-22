@@ -27,43 +27,43 @@ var data = [
     'model': 'Exercise',
     'documents': [
       {
-        'video': 'https://www.youtube.com/watch?v=o5b0gS7wI1k',
+        'video': '//www.youtube.com/embed/o5b0gS7wI1k',
         'name': 'Knee'
       },
       {
-        'video': 'https://www.youtube.com/watch?v=DoR9H9zuJPY',
+        'video': '//www.youtube.com/embed/DoR9H9zuJPY',
         'name': 'Arm and Hand'
       },
       {
-        'video': 'https://www.youtube.com/watch?v=BQ8uSKQBias',
+        'video': '//www.youtube.com/embed/BQ8uSKQBias',
         'name': 'Shoulder'
       },
       {
-        'video': 'https://www.youtube.com/watch?v=3o2vVv__W14',
+        'video': '//www.youtube.com/embed/3o2vVv__W14',
         'name': 'Arm One'
       },
       {
-        'video': 'https://www.youtube.com/watch?v=0GkA21ngLG0',
+        'video': '//www.youtube.com/embed/0GkA21ngLG0',
         'name': 'Arm Two'
       },
       {
-        'video': 'https://www.youtube.com/watch?v=A7OTduW8QqI',
+        'video': '//www.youtube.com/embed/A7OTduW8QqI',
         'name': 'Hip One'
       },
       {
-        'video': 'https://www.youtube.com/watch?v=z1fzp7aD6gY',
+        'video': '//www.youtube.com/embed/z1fzp7aD6gY',
         'name': 'Hip Two'
       },
       {
-        'video': 'https://www.youtube.com/watch?v=J0AuYKoJB-A',
+        'video': '//www.youtube.com/embed/J0AuYKoJB-A',
         'name': 'Rotator Cuff'
       },
       {
-        'video': 'https://www.youtube.com/watch?v=NM3z8oQsK_U',
+        'video': '//www.youtube.com/embed/NM3z8oQsK_U',
         'name': 'Back'
       },
       {
-        'video': 'https://www.youtube.com/watch?v=fBpYx1XsMqg',
+        'video': '//www.youtube.com/embed/fBpYx1XsMqg',
         'name': 'Upper Back and Neck'
       },
     ]

@@ -1,11 +1,15 @@
-
+// for ORM
+const mongoose = require('mongoose');
 // unit test suite for wish model
 describe('User Model Unit Tests', function() {
 
   // for db connection
-  const db = require('../../models');
+  mongoose.connect('mongodb://localhost/test_homePT',
+    { useNewUrlParser: true });
+  // Deprecation warning: https://github.com/Automattic/mongoose/issues/6922
+  mongoose.set('useCreateIndex', true);
   // for User model to test
-  const User = db.User;
+  const User = require('../../models/User');
   // for chai's expect BDD syntax
   const expect = require('chai').expect;
 
@@ -17,7 +21,7 @@ describe('User Model Unit Tests', function() {
 
   beforeEach(async function() {
     // create valid user
-    await db.User.create({
+    await User.create({
       email: 'this@isOkay.org',
       name: 'a valid name',
       password: 'atleast6char',
@@ -34,7 +38,7 @@ describe('User Model Unit Tests', function() {
 
   afterEach(async function() {
     // remove valid user
-    await db.User.deleteOne({ email: 'this@isOkay.org' })
+    await User.deleteOne({ email: 'this@isOkay.org' })
       .catch(function(err) {
         console.log('err in teardown deleting validUser:', err);
       });

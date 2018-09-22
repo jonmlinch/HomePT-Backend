@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
     });
 });
 
+// get one exercise by sending its id as a param
 router.get('/one/:exerciseId', (req, res) => {
   db.Exercise.findById(req.params.exerciseId)
     .then(result => {

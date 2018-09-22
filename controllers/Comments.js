@@ -6,9 +6,10 @@ const db = require('../models');
 const router = express.Router();
 
 // NOTE provider and client access (unqiue providers & clients)
-router.get('/', (req, res) => {
+// returns all comments created by client, whose id is sent as a param
+router.get('/:clientId', (req, res) => {
   db.Comment.find({
-    where: { client: req.body.id }
+    where: { client: req.params.clientId }
   })
     .then(results => {
       // ensure a comment was found
