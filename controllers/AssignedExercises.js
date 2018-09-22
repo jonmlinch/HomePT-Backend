@@ -15,7 +15,7 @@ router.patch('/', (req, res) => {
       res.status(200).send('Successfully updated assignment');
     })
     .catch(err => {
-      res.status(503).send({ err: 'database err' });
+      res.status(503).send({ err: 'db query err fetching AE' });
     });
 });
 

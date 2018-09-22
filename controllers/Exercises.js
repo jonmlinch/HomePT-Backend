@@ -9,10 +9,15 @@ const router = express.Router();
 router.get('/', (req, res) => {
   db.Exercise.find({})
     .then(results => {
-      res.status(200).send({ exercises: results });
+      if (results.length) {
+        res.status(200).send({ exercises: results });
+      }
+      else {
+        res.status(404).send({ err: 'no exercises found' });
+      }
     })
     .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
+      res.status(503).send({ err: 'DB query err while finding all exercises' });
     });
 });
 
@@ -34,11 +39,16 @@ router.get('/one/:exerciseId', (req, res) => {
 router.post('/', (req, res) => {
   db.Exercise.create(req.body)
     .then(newEx => {
-      res.status(201).send({ success: 'Exercise created' });
+      if (newEx) {
+        res.status(201).send({ success: 'Exercise created' });
+      }
+      else {
+        res.status(400).send({ err: 'Unable to create ex with that data' });
+      }
     })
     .catch(err => {
       console.log(err);
-      res.status(400).send({ err: 'Undocumented error' });
+      res.status(400).send({ err: 'DB err in create ex query' });
     });
 });
 

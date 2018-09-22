@@ -11,10 +11,16 @@ router.get('/', (req, res) => {
     where: { client: req.body.id }
   })
     .then(results => {
-      res.status(200).send({ comments: results });
+      // ensure a comment was found
+      if (results.length) {
+        res.status(200).send({ comments: results });
+      }
+      else {
+        res.status(404).send({ err: 'Comment not found' });
+      }
     })
     .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
+      res.status(503).send({ err: 'DB query err for fetching comment' });
     });
 });
 
@@ -32,7 +38,6 @@ router.post('/', (req, res) => {
     provider: req.body.providerId,
     client: req.body.clientId
   };
-  // TODO finish
   db.Comment.create(createData)
     .then(newComment => {
       console.log('newComment is', newComment);

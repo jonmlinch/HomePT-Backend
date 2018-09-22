@@ -7,20 +7,6 @@ const router = express.Router();
 // load async
 const async = require('async');
 
-// returns an array of prescriptions written by provider
-// NOTE not returning assigned exercises, just an overview
-router.get('/by/provider', (req, res) => {
-  db.Prescription.find({
-    where: { provider: req.body.id }
-  })
-    .then(results => {
-      res.status(200).send({ prescriptions: results });
-    })
-    .catch(err => {
-      res.status(400).send({ err: 'Undocumented err' });
-    });
-});
-
 // given data for a prescription and its assigned exercises, creates it
 router.post('/', async (req, res) => {
   console.log('req.body in create prescript is', req.body);
