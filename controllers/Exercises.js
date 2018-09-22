@@ -16,8 +16,8 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/one', (req, res) => {
-  db.Exercise.findById(req.body.id)
+router.get('/one/:exerciseId', (req, res) => {
+  db.Exercise.findById(req.params.exerciseId)
     .then(result => {
       if (result) {
         res.status(200).send({ exercise: result });
