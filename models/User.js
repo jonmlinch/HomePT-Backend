@@ -71,6 +71,8 @@ userSchema.set('toJSON', {
       email: user.email,
       name: user.name,
       type: user.type,
+      provider: user.provider,
+      prescription: user.prescription,
       admin: user.admin
     };
     return returnJson;
