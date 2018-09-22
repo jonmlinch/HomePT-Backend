@@ -26,11 +26,12 @@ router.get('/prescription/:clientId', (req, res) => {
   db.User.findById(req.params.clientId)
     .populate('prescription')
     .populate({
-      path: 'prescriptions',
+      path: 'prescription',
       populate: { path: 'assignedExercises' }
     })
     .then(result => {
       if (result) {
+        console.log(result.prescription)
         res.status(200).send({ result: result })
       }
       else {
