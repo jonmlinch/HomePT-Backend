@@ -23,8 +23,8 @@ router.get('/by/email', (req, res) => {
 // TODO syntax for populating active exercises
 // returns a User's active prescription and its assigned exercises
 router.get('/prescription/:clientId', (req, res) => {
-  console.log('The PARAMS', req.params)
   db.User.findById(req.params.clientId)
+    .populate('prescription')
     .populate({
       path: 'prescriptions',
       populate: { path: 'assignedExercises' }

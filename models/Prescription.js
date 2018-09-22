@@ -11,17 +11,17 @@ const presciptionSchema = new mongoose.Schema({
   provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   client: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   assignedExercises: [{ type: mongoose.Schema.Types.ObjectId,
-    ref: 'AssignedExcercise' }],
+    ref: 'AssignedExercise' }],
   date: { type: Date, default: Date.now }
 });
 
 // // TODO add a hook to update User model
 // // NOTE after create, change relevant User's .prescription to point to this.id
 presciptionSchema.post('save', function(doc) {
-  const thisPrescriptsId = mongoose.Types.ObjectId(doc.id);
+  // const thisPrescriptsId = mongoose.Types.ObjectId(doc.id);
   console.log('doc is:', doc);
   // find the client's user model
-  User.update({ _id: doc.client }, { $set: { prescription: thisPrescriptsId } },
+  User.update({ _id: doc.client }, { $set: { prescription: doc._id } },
     finishedUpdateAttempt);
 });
 

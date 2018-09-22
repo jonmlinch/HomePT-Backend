@@ -30,16 +30,16 @@ router.post('/', (req, res) => {
   }
   // TODO finish
   const createData = {
-    provider: req.body,
-    client: req,body
+    provider: req.body.providerId,
+    client: req.body.clientId
   };
   db.Comment.create(createData)
-    .then(newEx => {
+    .then(newComment => {
       res.status(201).send({ success: 'Comment created' });
     })
     .catch(err => {
       console.log(err);
-      res.status(400).send({ err: 'Undocumented error' });
+      res.status(503).send({ err: 'Create comment query err' });
     });
 });
 
