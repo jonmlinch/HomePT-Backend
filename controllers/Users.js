@@ -33,7 +33,6 @@ router.get('/prescription/:clientId', (req, res) => {
 
 // route for providers to get a list of all their clients
 router.get('/clients/:providerId', (req, res) => {
-  console.log('PARAMS', req.params)
   db.User.find({provider: req.params.providerId})
     .then(results => {
       if (results.length) {
