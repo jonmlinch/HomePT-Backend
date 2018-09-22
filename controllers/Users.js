@@ -33,7 +33,7 @@ router.get('/prescription/:clientId', (req, res) => {
       if (result) {
         console.log('result is', result);
         console.log('prescription is', result.prescription);
-        res.status(200).send({ result: result })
+        res.status(200).send({ result: result.prescription })
       }
       else {
         res.status(400).send({ err: 'User not found' });
