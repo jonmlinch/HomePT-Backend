@@ -8,9 +8,8 @@ const router = express.Router();
 // NOTE provider and client access (unqiue providers & clients)
 // returns all comments created by client, whose id is sent as a param
 router.get('/:clientId', (req, res) => {
-  db.Comment.find({
-    where: { client: req.params.clientId }
-  })
+  console.log(req.params.clientId)
+  db.Comment.find({ client: req.params.clientId })
     .then(results => {
       // ensure a comment was found
       if (results.length) {
