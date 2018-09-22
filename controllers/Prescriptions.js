@@ -29,7 +29,6 @@ router.post('/', async (req, res) => {
     }
     db.AssignedExercise.create(createData)
       .then(success => {
-        console.log('success return of creating AE is:', success);
         assignedExs.push(success.id);
         done();
       })
@@ -39,7 +38,6 @@ router.post('/', async (req, res) => {
       });
   }, function() {
     // TODO add AEs to prescription
-    console.log('list of AEs to add:', assignedExs);
     const createData = {
       provider: providerId,
       client: clientId,
