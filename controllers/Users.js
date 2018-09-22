@@ -23,7 +23,7 @@ router.get('/prescription/:clientId', (req, res) => {
         res.status(200).send({ result: result })
       }
       else {
-        res.status(400).send({ err: 'User not found' });
+        res.status(404).send({ err: 'User not found' });
       }
     })
     .catch(err => {
@@ -36,12 +36,11 @@ router.get('/clients/:providerId', (req, res) => {
   console.log('PARAMS', req.params)
   db.User.find({provider: req.params.providerId})
     .then(results => {
-      if (results !== []) {
-        console.log('RESULT ARRAY', results)
+      if (results.length) {
         return res.status(200).send({ clients: results });
       }
       else {
-        res.status(400).send({ err: 'No clients found' });
+        res.status(404).send({ err: 'No clients found' });
       }
     })
     .catch(err => {
