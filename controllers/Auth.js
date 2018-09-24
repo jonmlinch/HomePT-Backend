@@ -39,6 +39,15 @@ router.post('/signup', (req, res) => {
   console.log('req.body in signup is:', req.body);
   db.User.create(req.body)
     .then(newUser => {
+      console.log('The new user is: ', newUser)
+      if (!newUser.email) {
+        return res.status(400).send({ err: 'That email is not registered' });
+      }
+      // verify password
+      if (!req.body.password || !newUser.authenticated(req.body.password)) {
+        // password failed authentication
+        return res.status(401).send({ err: 'Invalid credentials' });
+      }
       res.status(201).send({ token: generateToken(newUser, 60 * 60 * 24 * 7) });
     })
     .catch(err => {
